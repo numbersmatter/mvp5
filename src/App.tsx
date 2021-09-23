@@ -5,49 +5,44 @@ import {
   Link,
   Redirect
 } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import AuthenticatedRoute from './components/AuthenticatedRoute';
 
 import { AuthContextProvider, useAuthState } from './firebase'
+import BasePage from './BasePage';
+import { CssBaseline } from '@mui/material';
 
-const AuthenticatedRoute = ( C: React.Component, props: any  ) => {
-  const { isAuthenticated } = useAuthState()
-  console.log(`AuthenticatedRoute: ${isAuthenticated}`)
-  return (
-    <Route
-      {...props}
-      render={routeProps =>
-        isAuthenticated ? <C {...routeProps} /> : <Redirect to="/login" />
-      }
-    />
-  )
-}
 
-const UnauthenticatedRoute = ({ component: C, ...props }) => {
-  const { isAuthenticated } = useAuthState()
-  console.log(`UnauthenticatedRoute: ${isAuthenticated}`)
-  return (
-    <Route
-      {...props}
-      render={routeProps =>
-        !isAuthenticated ? <C {...routeProps} /> : <Redirect to="/" />
-      }
-    />
-  )
-}
+
+
 
 function App() {
   return (
-    <AuthContextProvider>
-      <Router>
-        <div>
-          <Link to="/">Home</Link> | <Link to="/login">Login</Link> |{' '}
-          <Link to="/signup">SignUp</Link>
-        </div>
-        <AuthenticatedRoute exact path="/" component={Home} />
-        <UnauthenticatedRoute exact path="/signup" component={SignUp} />
-        <UnauthenticatedRoute exact path="/login" component={Login} />
-      </Router>
-    </AuthContextProvider>
+    <div style={{backgroundImage: "url(/images/FMBg.jpg)"}}>
+
+      <AuthContextProvider>
+        {/* <CssBaseline /> */}
+        <Router>
+          <NavBar/>
+          <BasePage/>
+
+        </Router>
+      </AuthContextProvider>
+    </div>
   )
 }
+
+/* function PageOne(){
+  const propsForRoute = {
+    'exact': true,
+    'path': '/'
+  }
+
+  return (
+    <AuthenticatedRoute routeProps={propsForRoute}>
+      <h1>Hola Como Esta</h1>
+    </AuthenticatedRoute>
+  )
+} */
 
 export default App

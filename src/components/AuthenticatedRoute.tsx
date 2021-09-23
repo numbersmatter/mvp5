@@ -1,4 +1,4 @@
-import React, { ReactChildren } from 'react';
+import React, { ReactChildren, ReactNode } from 'react';
 import { AuthContextProvider, useAuthState } from '../firebase';
 import {
   BrowserRouter as Router,
@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 
 export interface AuthenticatedRouteProps {
-  component: ReactChildren,
+  children: ReactNode,
   routeProps: {
     [key: string] : any
   },
@@ -22,7 +22,7 @@ export default function AuthenticatedRoute(props: AuthenticatedRouteProps){
       {...props.routeProps}
       
     > 
-      {isAuthenticated ? props.component : <Redirect to="/login"/>}
+      {isAuthenticated ? props.children : <Redirect to="/login"/>}
       
     
     </Route>
