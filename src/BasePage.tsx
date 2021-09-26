@@ -38,6 +38,7 @@ export default function BasePage(props: BasePageProps){
           
           <Profile path='/test3'/>
           <Logging path='/login' />
+          <TestPage path='/:id' />
           <Route path='/' exact component={WaitList}/>
           <Route component={NotFound}/>
           
@@ -59,6 +60,14 @@ export default function BasePage(props: BasePageProps){
 export interface PageProps {
   path?: string,
   [key: string]: any,
+}
+
+function TestPage (props: PageProps){
+  return (
+    <Route path={props.path} >
+      <ArtistProfile/>
+    </Route>
+    )
 }
 
 function NoResource (props: PageProps){

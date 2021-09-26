@@ -11,21 +11,38 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import DrawerMenu from './DrawerMenu';
 
 export interface NavbarProps {
   user?: any,
+  drawerState: boolean,
+  setDrawer: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 export default function NavBar(props: NavbarProps) {
+
+  const toggleDrawer =
+  ( open: boolean, setDrawerState: (state:boolean)=>void ) =>{
+   /*  (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event.type === 'keydown' &&
+        ((event as React.KeyboardEvent).key === 'Tab' ||
+          (event as React.KeyboardEvent).key === 'Shift')
+      ) {
+        return;
+      } */
+
+    setDrawerState(open);
+  };
   
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+    props.setDrawer(true)
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    toggleDrawer(false, props.setDrawer)
   };
 
   return (
@@ -38,8 +55,11 @@ export default function NavBar(props: NavbarProps) {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={handleMenu}
           >
-            <MenuIcon />
+            <MenuIcon 
+              
+            />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             The Furry Marketplace
@@ -56,28 +76,12 @@ export default function NavBar(props: NavbarProps) {
               >
                 <AccountCircle />
               </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-              </Menu>
+              
             </div>
           )}
         </Toolbar>
       </AppBar>
+      <DrawerMenu drawerState={props.drawerState} setDrawer={props.setDrawer} />
     </Box>
   );
 }

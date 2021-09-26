@@ -1,7 +1,10 @@
+import firebase from 'firebase/compat/app'
 import { getAuth, onAuthStateChanged, AuthError } from '@firebase/auth'
 import { initializeApp } from 'firebase/app'
+import { getFirestore } from "firebase/firestore"
 import { User } from '@firebase/auth'
 import { useState, useEffect, useContext, createContext } from 'react'
+import { collection, doc, setDoc } from "firebase/firestore";
 
 
 export const firebaseApp = initializeApp({
@@ -21,6 +24,10 @@ export interface CurrentUser {
   userLoading: boolean,
   userError?: AuthError| undefined,
 }
+
+export const dbCompat= firebase.firestore();
+
+export const db= getFirestore();
 
 export const AuthContext = createContext<CurrentUser>({
   username: null,

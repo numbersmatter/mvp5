@@ -10,8 +10,9 @@ import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 
 export interface DrawerProps {
   drawerState: boolean,
-  setDrawer: () =>void
-}
+  setDrawer: React.Dispatch<React.SetStateAction<boolean>>
+};
+
 
 export default function DrawerMenu(props: DrawerProps) {
   const toggleDrawer =
@@ -28,7 +29,7 @@ export default function DrawerMenu(props: DrawerProps) {
     setDrawerState(open);
   };
 
-  const list =() =>{
+  const ListStuff =() =>{
     return(
       <List>
         <ListItem button key='profile'>
@@ -54,7 +55,11 @@ export default function DrawerMenu(props: DrawerProps) {
         anchor='left'
         open={props.drawerState}
         onClose={toggleDrawer(false, props.setDrawer)}
+        sx={{
+          width:'250px'
+        }}
       >
+        <ListStuff />
         
       </Drawer>
     </React.Fragment>

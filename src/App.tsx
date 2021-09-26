@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -6,6 +6,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import NavBar from './components/NavBar';
+import DrawerMenu from './components/DrawerMenu';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 
 import { AuthContextProvider, useAuthState } from './firebase'
@@ -17,13 +18,18 @@ import { CssBaseline } from '@mui/material';
 
 
 function App() {
+  const [drawerOpen, setDrawerOpen]= useState(false)
   return (
     <div style={{backgroundImage: "url(/images/FMBg.jpg)"}}>
 
       <AuthContextProvider>
         {/* <CssBaseline /> */}
         <Router>
-          <NavBar/>
+          <NavBar
+            drawerState={drawerOpen}
+            setDrawer={setDrawerOpen}
+          />
+          
           <BasePage/>
 
         </Router>
