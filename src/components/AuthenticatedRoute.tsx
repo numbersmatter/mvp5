@@ -1,5 +1,5 @@
 import React, { ReactChildren, ReactNode } from 'react';
-import { AuthContextProvider, useAuthState } from '../firebase';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -15,7 +15,7 @@ export interface AuthenticatedRouteProps {
 }
 
 export default function AuthenticatedRoute(props: AuthenticatedRouteProps){
-  const { isAuthenticated } = useAuthState()
+  /* const { isAuthenticated } = useAuthState()
 
   return (
     <Route
@@ -26,5 +26,5 @@ export default function AuthenticatedRoute(props: AuthenticatedRouteProps){
       
     
     </Route>
-  )
+  ) */
 }

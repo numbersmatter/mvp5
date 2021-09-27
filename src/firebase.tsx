@@ -1,13 +1,12 @@
-import firebase from 'firebase/compat/app'
-import { getAuth, onAuthStateChanged, AuthError } from '@firebase/auth'
-import { initializeApp } from 'firebase/app'
-import { getFirestore } from "firebase/firestore"
-import { User } from '@firebase/auth'
-import { useState, useEffect, useContext, createContext } from 'react'
-import { collection, doc, setDoc } from "firebase/firestore";
+// v9 compat packages are API compatible with v8 code
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import 'firebase/compat/storage';
 
 
-export const firebaseApp = initializeApp({
+
+const firebaseConfig = {
   apiKey: "AIzaSyAmx2YFYy6e1tgBgW9gsbyjRudidRgKvfk",
   authDomain: "art-market-production.firebaseapp.com",
   projectId: "art-market-production",
@@ -15,41 +14,34 @@ export const firebaseApp = initializeApp({
   messagingSenderId: "295051557281",
   appId: "1:295051557281:web:7e6a6a88345eba27cf33e0",
   measurementId: "G-NWFW97W8JC"
-})
+};
 
-export interface CurrentUser {
-  username: string | undefined | null,
-  user: User | undefined | null,
-  isAuth: boolean,
-  userLoading: boolean,
-  userError?: AuthError| undefined,
+
+// initialize Firebase
+if (!firebase.apps.length) 
+{
+    firebase.initializeApp(firebaseConfig);
+}
+else 
+{
+    firebase.app(); // if already initialized, use this one
 }
 
-export const dbCompat= firebase.firestore();
+export const auth = firebase.auth()
+export const db = firebase.firestore();
+export default firebase
 
-export const db= getFirestore();
+export const storage = firebase.storage();
 
-export const AuthContext = createContext<CurrentUser>({
-  username: null,
-  user: undefined,
-  isAuth: false,
-  userLoading: false,
-  userError: undefined
+export const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp;
 
-});
-
-export const AuthContextProvider = (props: any) => {
-  const [user, setUser] = useState<User | null>(null)
-  const [error, setError] = useState<Error | null>(null)
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(getAuth(firebaseApp), setUser, setError)
-    return () => unsubscribe()
-  }, [])
-  return <AuthContext.Provider value={{ user, error }} {...props} />
+export const arrayUnion=(data: any) =>{
+  return firebase.firestore.FieldValue.arrayUnion(data);
 }
 
-export const useAuthState = () => {
-  const auth = useContext(AuthContext)
-  return { ...auth, isAuthenticated: auth.user != null }
-}
+export const deleteField = () =>{
+  return firebase.firestore.FieldValue.delete();
+};
+
+// not working as expected may be only a server function
+export const timestampToDate = firebase.firestore.FieldValue.serverTimestamp;

@@ -1,54 +1,24 @@
-import React, {useState} from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect
-} from 'react-router-dom';
-import NavBar from './components/NavBar';
-import DrawerMenu from './components/DrawerMenu';
-import AuthenticatedRoute from './components/AuthenticatedRoute';
+import React from 'react';
+import { Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { AuthProvider } from './context/AuthContext';
+import { Toaster } from 'react-hot-toast';
 
-import { AuthContextProvider, useAuthState } from './firebase'
-import BasePage from './BasePage';
-import { CssBaseline } from '@mui/material';
+import FurryMarket from './FurryMarket'
 
 
-
-
+export const history = createBrowserHistory();
 
 function App() {
-  const [drawerOpen, setDrawerOpen]= useState(false)
   return (
-    <div style={{backgroundImage: "url(/images/FMBg.jpg)"}}>
-
-      <AuthContextProvider>
-        {/* <CssBaseline /> */}
-        <Router>
-          <NavBar
-            drawerState={drawerOpen}
-            setDrawer={setDrawerOpen}
-          />
-          
-          <BasePage/>
-
-        </Router>
-      </AuthContextProvider>
-    </div>
-  )
+    <AuthProvider>
+      <Toaster/>
+      <Router history= { history } >
+        <FurryMarket />
+      </Router>
+    </AuthProvider>
+    
+  );
 }
 
-/* function PageOne(){
-  const propsForRoute = {
-    'exact': true,
-    'path': '/'
-  }
-
-  return (
-    <AuthenticatedRoute routeProps={propsForRoute}>
-      <h1>Hola Como Esta</h1>
-    </AuthenticatedRoute>
-  )
-} */
-
-export default App
+export default App;

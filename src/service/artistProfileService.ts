@@ -1,4 +1,4 @@
-import { dbCompat } from "../firebase";
+import { db} from "../firebase";
 
 export interface ArtistProfileType {
   artistTerms: string,
@@ -16,7 +16,7 @@ export interface ArtistProfileType {
 
 
 
-const artistProfileDb = dbCompat;
+const artistProfileDb = db;
 
 // get ref to artist profile
 const getProfileRef = (name:string) => {
