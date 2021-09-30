@@ -20,8 +20,15 @@ import {
 } from 'react-firebase-hooks/firestore';
 
 import ArtistProfileService from '../service/artistProfileService';
+import CommissionFormService from '../services/commissionForm.service';
+import ArtistProfileTitle from './profilepage/ArtistProfileTitle';
 
 
+import ArtistLinks from './profilepage/ArtistLinks';
+import ArtistShopStatus from './profilepage/ArtistProfileShopStatus';
+import ArtistTerms from './profilepage/ArtistTerms';
+import ArtistForms from './profilepage/ArtistForms';
+import ArtistImage from './profilepage/ArtistImage'
 
 
 
@@ -35,13 +42,19 @@ export interface ProfileRouteParams {
 
 export default function ArtistProfile(props: ProfileRouteParams){
   const classes = {};
-  const params = useParams();
+  let { id} = useParams<{id: string}>();
+
+
   
   const [artistData, loading, error]= useDocumentData( 
     ArtistProfileService.getProfileRef("milachu92")
   )
 
-  console.log(params);
+  const [artistForms, formsLoading, formsError ]= useCollection(
+    CommissionFormService.allForms(id)
+  );
+
+  
 
   if(loading) {
     return (
@@ -61,31 +74,22 @@ export default function ArtistProfile(props: ProfileRouteParams){
         alignItems="center"
       >
         {console.log(artistData)}
-        <Grid item xs={12} >
-          <Paper elevation={0} style={{margin:"1em", backgroundColor:"transparent", padding:"1em"}}
-          >
-          <Box  style={{color: "black"}}>               
-            <Typography variant="h1" >
-                 Test text
-            </Typography>
-            {/* <Button onClick={()=>console.log(currentUser)}>
-            console profile
-          </Button> */}
-          </Box>
-          </Paper>
-        </Grid>
-        <Grid 
-        container
-        item
-        xs={12}
-        direction="row"
-        justifyContent="center"
-        spacing={1}
-        >
-          <h3> some text</h3>
-
-          
-        </Grid>
+        {console.log(id)}
+        <ArtistProfileTitle id={id} />
+        <ArtistImage image={artistData.profileImage} qoute={artistData.quote} />
+        <ArtistLinks artLinks={artistData.artistLinks} />
+        <ArtistShopStatus 
+          commissionsOpen={artistData.commissionsOpen}
+          shopOpenImg={artistData.shopOpenImg}
+          shopClosedImg={artistData.shopClosedImg}
+          shopOpenStatusText={artistData.shopOpenStatusText}
+          shopClosedStatusText={artistData.shopClosedStatusText}
+        />
+        <ArtistTerms terms={artistData.artistTerms} />
+        <ArtistForms forms={artistForms} loading={formsLoading} error={formsError}
+          artist={id} artistProfile={artistData}
+        />
+        
       </Grid>
   )
 }

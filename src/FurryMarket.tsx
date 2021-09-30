@@ -15,7 +15,12 @@ export default function FurryMarket(){
 
   const [drawerOpen, setDrawerOpen]= useState(false)
   return (
-    <div style={{backgroundImage: "url(/images/FMBg.jpg)"}}>
+    <div style={
+      {
+        backgroundImage: "url(/images/FMBg.jpg)",
+        backgroundRepeat: 'repeat-y'
+      }
+    }>
         {/* <CssBaseline /> */}
           <NavBar
             drawerState={drawerOpen}

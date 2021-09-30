@@ -16,7 +16,8 @@ export interface ArtistProfileType {
 
 
 
-const artistProfileDb = db;
+const artistProfileDb = db.collection
+("usernames");
 
 // get ref to artist profile
 const getProfileRef = (name:string) => {
