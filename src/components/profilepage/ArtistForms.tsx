@@ -49,10 +49,20 @@ export default function ArtistForms(props: ArtistFormsProps){
   }
   
   return (
-    <Grid item>
+    <Grid item
+      sx={{
+        margin: "15px",
+        maxWidth: "700px",
+        minWidth: '500px'
+
+      }}
+    >
       <h3>Forms</h3>
-      <Paper>
-        <Grid container spacing={2}>
+      <Paper sx={{ 
+        backgroundColor: 'white',
+         
+        }}>
+        <Grid container spacing={2} direction="column">
           <Grid item>
             <Typography>listing forms</Typography>
           </Grid>

@@ -5,11 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: "url(/images/FMBg.jpg)";
+  /* background-image: "url(/images/FMBg.jpg)"; */
 }
 
 :root {
-  background-image: "url(/images/FMBg.jpg)";
+  background-image: url('./FMBg.jpg');
 }
 
 code {
