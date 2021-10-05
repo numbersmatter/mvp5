@@ -29,6 +29,7 @@ import ArtistShopStatus from './profilepage/ArtistProfileShopStatus';
 import ArtistTerms from './profilepage/ArtistTerms';
 import ArtistForms from './profilepage/ArtistForms';
 import ArtistImage from './profilepage/ArtistImage'
+import ArtistOpenForms from './profilepage/ArtistOpenForms';
 
 
 
@@ -72,6 +73,7 @@ export default function ArtistProfile(props: ProfileRouteParams){
         direction="column"
         justifyContent="center"
         alignItems="center"
+        spacing={3}
       >
         {console.log(artistData)}
         {console.log(id)}
@@ -86,9 +88,11 @@ export default function ArtistProfile(props: ProfileRouteParams){
           shopClosedStatusText={artistData.shopClosedStatusText}
         />
         <ArtistTerms terms={artistData.artistTerms} />
+        
         <ArtistForms forms={artistForms} loading={formsLoading} error={formsError}
           artist={id} artistProfile={artistData}
         />
+        
         
       </Grid>
   )

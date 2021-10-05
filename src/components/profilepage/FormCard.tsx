@@ -16,7 +16,7 @@ export default function FormCard(props: FormCardProps){
 
   return (
     <Grid item key={props.form.id} >
-       <ExpandingCard form={props.form.data() } />
+       <ExpandingCard form={props.form } />
     </Grid>
   )
 }

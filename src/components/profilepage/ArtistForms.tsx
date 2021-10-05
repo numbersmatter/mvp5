@@ -8,6 +8,7 @@ import CommissionTypeCard from '../CommissionForm/CommissionTypeCard';
 import ExpandingCard from '../CommissionForm/ExpandingCard';
 import CommissionForm from '../CommissionForm/CommissionForm';
 import { useAuth } from '../../context/AuthContext';
+import ArtistOpenForms from './ArtistOpenForms';
 
 export interface ArtistFormsProps {
   forms: any,
@@ -49,56 +50,9 @@ export default function ArtistForms(props: ArtistFormsProps){
   }
   
   return (
-    <Grid item
-      sx={{
-        margin: "15px",
-        maxWidth: "700px",
-        minWidth: '500px'
-
-      }}
+    <Grid item 
     >
-      <h3>Forms</h3>
-      <Paper sx={{ 
-        backgroundColor: 'white',
-         
-        }}>
-        <Grid container spacing={2} direction="column">
-          <Grid item>
-            <Typography>listing forms</Typography>
-          </Grid>
-        {console.log(props.forms.docs)}
-        { 
-          props.forms.docs
-          /* .filter((form:any)=>form.data().formVisible) */
-          .map((form:any)=> (                   
-            <Grid item key={form.id} >
-              <Typography>This is form</Typography>
-              {console.log(form.data().cardImage)}
-              <ExpandingCard form={form.data() } />
-              {/* <CommissionTypeCard 
-                title={form.data().Title}
-                shortDescription={form.data().shortDescription}
-                longDescription= {form.data().longDescription}
-                pricingRange={form.data().pricingRange}
-                cardImage={form.data().cardImage}
-                button={<CommissionForm 
-                    formQuestions= {form.data().formQuestions}
-                    userUID= {currentUser.user?.uid}
-                    username={currentUser.username}
-                    commissionedArtist={props.artist}
-                    commissionFormId={form.id}
-                    formOwnerId={form.data().formOwnerId}
-                    commissionFormTitle={form.data().Title}
-                    formOpen={form.data().formOpen}
-                    commissionButtonText={props.artistProfile.commissionText}
-                  /> }
-              /> */}
-            </Grid>
-        ))
-         }
-        </Grid>
-      </Paper>
-
+      <ArtistOpenForms artistForms={props.forms} titleText="Artist Forms"/>
     </Grid>
   )
 }

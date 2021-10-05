@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import BasePage from './BasePage';
+import FooterSpacer from './components/FooterSpacer'
 
 
 
@@ -23,6 +24,7 @@ export default function FurryMarket(){
           />
           
           <BasePage/>
+          <FooterSpacer />
 
     </div>
   )
